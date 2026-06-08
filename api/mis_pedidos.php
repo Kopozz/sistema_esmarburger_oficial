@@ -6,7 +6,7 @@
 require_once 'config.php';
 requireLogin();
 
-require_once 'includes/header.php';
+require_once __DIR__ . '/../includes/header.php';
 
 $pdo = getDBConnection();
 $userId = $_SESSION['user_id'];
@@ -199,4 +199,4 @@ setTimeout(function() {
 </script>
 <?php endif; ?>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/../includes/footer.php'; ?>
