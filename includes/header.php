@@ -24,7 +24,7 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
 <body>
     <header>
         <div class="nav-container">
-            <a href="index.php" class="logo-link">
+            <a href="/" class="logo-link">
                 <!-- SVG Premium que emula el logo provisto -->
                 <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="50" cy="50" r="46" fill="none" stroke="#00baf2" stroke-width="4" />
@@ -39,33 +39,35 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
 
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="index.php" class="nav-link">Carta</a></li>
+                    <li><a href="/" class="nav-link">Carta</a></li>
                     <?php if (isLoggedIn()): ?>
-                        <li><a href="mis_pedidos.php" class="nav-link">Mis Pedidos</a></li>
+                        <li><a href="/mis_pedidos.php" class="nav-link">Mis Pedidos</a></li>
                         <?php if (isAdmin()): ?>
-                            <li><a href="admin_dashboard.php" class="nav-link" style="color: var(--secondary);">Panel Admin</a></li>
+                            <li><a href="/admin_dashboard.php" class="nav-link" style="color: var(--secondary);">Panel Admin</a></li>
                         <?php endif; ?>
                     <?php endif; ?>
                 </ul>
             </nav>
 
             <div class="nav-actions">
-                <a href="cart.php" class="btn-icon" title="Ver Carrito">
+                <a href="/cart.php" class="btn-icon" title="Ver Carrito">
                     <!-- Icono Carrito -->
                     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                     </svg>
                     <?php if ($cartCount > 0): ?>
-                        <span class="badge"><?php echo $cartCount; ?></span>
+                        <span class="badge" id="cart-badge"><?php echo $cartCount; ?></span>
+                    <?php else: ?>
+                        <span class="badge" id="cart-badge" style="display:none;">0</span>
                     <?php endif; ?>
                 </a>
 
                 <?php if (isLoggedIn()): ?>
                     <span style="font-size: 0.9rem; color: var(--text-secondary);">Hola, <strong><?php echo htmlspecialchars($_SESSION['user_nombre']); ?></strong></span>
-                    <a href="logout.php" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Salir</a>
+                    <a href="/logout.php" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Salir</a>
                 <?php else: ?>
-                    <a href="login.php" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Ingresar</a>
-                    <a href="registro.php" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Registrarse</a>
+                    <a href="/login.php" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Ingresar</a>
+                    <a href="/registro.php" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Registrarse</a>
                 <?php endif; ?>
             </div>
         </div>

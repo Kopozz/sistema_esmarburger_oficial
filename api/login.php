@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
             <?php endif; ?>
 
-            <form action="login.php" method="POST">
+            <form action="/login.php" method="POST">
                 <div class="form-group">
                     <label class="form-label" for="email">Correo Electrónico</label>
                     <input class="form-input" type="email" id="email" name="email" required placeholder="correo@ejemplo.com">
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
 
             <div class="form-footer-link">
-                ¿No tienes cuenta? <a href="registro.php">Regístrate aquí</a>
+                ¿No tienes cuenta? <a href="/registro.php">Regístrate aquí</a>
             </div>
             
             <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem; text-align: center; font-size: 0.8rem; color: var(--text-secondary);">

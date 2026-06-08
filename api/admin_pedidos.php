@@ -150,7 +150,7 @@ $allOrders = $stmtOrders->fetchAll();
                                         </td>
                                         <td>
                                             <!-- Formulario simple para actualizar estado -->
-                                            <form action="admin_pedidos.php" method="POST" style="display: flex; gap: 0.5rem; align-items: center;">
+                                            <form action="/admin_pedidos.php" method="POST" style="display: flex; gap: 0.5rem; align-items: center;">
                                                 <input type="hidden" name="pedido_id" value="<?php echo $ped['id']; ?>">
                                                 <input type="hidden" name="update_status" value="1">
                                                 

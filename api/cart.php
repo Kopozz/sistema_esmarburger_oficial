@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (newQty < 1) return;
 
-        fetch('cart_action.php', {
+        fetch('/cart_action.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `action=update&id=${id}&qty=${newQty}`
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const id = this.getAttribute('data-id');
-            fetch('cart_action.php', {
+            fetch('/cart_action.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `action=remove&id=${id}`

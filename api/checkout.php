@@ -81,8 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $pdo->commit();
 
-            // Vaciar el carrito
-            unset($_SESSION['cart']);
+            // Vaciar el carrito (sesión + cookie)
+            clearCartCookie();
 
             // Redirigir a mis_pedidos.php con ID de confirmación
             header("Location: /mis_pedidos.php?success=1&id=$pedidoId");
@@ -114,7 +114,7 @@ require_once __DIR__ . '/../includes/header.php';
         <div class="glass-panel" style="padding: 2.5rem;">
             <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--text-primary);">Datos de Entrega</h3>
             
-            <form action="checkout.php" method="POST">
+            <form action="/checkout.php" method="POST">
                 <div class="form-group">
                     <label class="form-label" for="direccion">Dirección Exacta de Envío</label>
                     <input class="form-input" type="text" id="direccion" name="direccion" required 

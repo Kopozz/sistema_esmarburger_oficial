@@ -215,40 +215,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 3. Sistema dinámico de añadir al carrito sin recargar
     const addBtns = document.querySelectorAll('.add-to-cart-btn');
-    const badge = document.querySelector('.badge');
-    const toast = document.getElementById('toast');
+    const badge   = document.getElementById('cart-badge'); // siempre presente en el DOM
+    const toast   = document.getElementById('toast');
 
     addBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             const prodId = this.getAttribute('data-id');
+            const btnEl  = this;
+            btnEl.textContent = '✓';
+            btnEl.disabled = true;
 
-            // Petición AJAX/Fetch para guardar en la sesión del carrito
-            fetch('cart_action.php', {
+            // Usar ruta absoluta para que funcione en cualquier página
+            fetch('/cart_action.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `action=add&id=${prodId}&qty=1`
             })
             .then(res => res.json())
             .then(data => {
-                if(data.success) {
-                    // Actualizar el número del badge en el header
+                if (data.success) {
+                    // Actualizar el badge del carrito (siempre existe en el DOM)
                     if (badge) {
                         badge.textContent = data.totalItems;
-                    } else {
-                        // Si no existía el badge, recargar para mostrarlo en el header de forma limpia
-                        window.location.reload();
+                        badge.style.display = 'flex';
                     }
-                    
                     // Mostrar notificación flotante
                     toast.style.opacity = '1';
-                    setTimeout(() => {
-                        toast.style.opacity = '0';
-                    }, 2500);
+                    setTimeout(() => { toast.style.opacity = '0'; }, 2500);
                 }
+                setTimeout(() => {
+                    btnEl.textContent = 'Añadir +';
+                    btnEl.disabled = false;
+                }, 1500);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                console.error(err);
+                btnEl.textContent = 'Añadir +';
+                btnEl.disabled = false;
+            });
         });
     });
 });

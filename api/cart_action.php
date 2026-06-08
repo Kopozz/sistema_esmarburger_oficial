@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $action = $_POST['action'] ?? '';
 $prodId = isset($_POST['id']) ? (int)$_POST['id'] : 0;
-$qty = isset($_POST['qty']) ? (int)$_POST['qty'] : 1;
+$qty    = isset($_POST['qty']) ? (int)$_POST['qty'] : 1;
 
 if ($prodId <= 0) {
     echo json_encode(['success' => false, 'message' => 'ID de producto no válido']);
@@ -64,6 +64,11 @@ switch ($action) {
         break;
 }
 
+// Sincronizar el carrito con la cookie ANTES de responder
+// (garantiza persistencia entre instancias Lambda en Vercel)
+saveCartCookie();
+session_write_close();
+
 // Calcular total de items
 $totalItems = 0;
 foreach ($_SESSION['cart'] as $q) {
@@ -71,9 +76,10 @@ foreach ($_SESSION['cart'] as $q) {
 }
 
 echo json_encode([
-    'success' => $success,
-    'message' => $message,
-    'totalItems' => $totalItems
+    'success'    => $success,
+    'message'    => $message,
+    'totalItems' => $totalItems,
+    'cartCount'  => $totalItems,
 ]);
 exit;
 ?>
