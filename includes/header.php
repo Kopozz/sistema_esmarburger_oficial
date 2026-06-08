@@ -3,7 +3,7 @@
  * ESMAR BURGER - Header
  * Avance 2 - Ingeniería Web
  */
-require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../api/config.php';
 
 // Calcular total de items en el carrito
 $cartCount = 0;
