@@ -45,9 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Autologin despues de registro exitoso
                 $userId = $pdo->lastInsertId();
-                $_SESSION['user_id'] = $userId;
+                $_SESSION['user_id']     = $userId;
                 $_SESSION['user_nombre'] = $nombre;
-                $_SESSION['user_rol'] = 'cliente';
+                $_SESSION['user_rol']    = 'cliente';
+                setAuthCookie($userId, 'cliente', $nombre);
+                session_write_close();
 
                 header('Location: /');
                 exit;

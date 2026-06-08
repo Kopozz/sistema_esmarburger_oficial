@@ -28,10 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_id']     = $user['id'];
             $_SESSION['user_nombre'] = $user['nombre'];
-            $_SESSION['user_rol'] = $user['rol'];
-            
+            $_SESSION['user_rol']    = $user['rol'];
+            // Guardar cookie de respaldo para Vercel serverless (sesión no siempre persiste entre lambdas)
+            setAuthCookie($user['id'], $user['rol'], $user['nombre']);
+            session_write_close(); // Forzar escritura antes del redirect
+
             if ($user['rol'] === 'admin') {
                 header('Location: /admin_dashboard.php');
             } else {

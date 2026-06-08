@@ -3,9 +3,10 @@
  * ESMAR BURGER - Logout Controller
  * Avance 2 - Ingeniería Web
  */
-session_start();
+require_once 'config.php';
+clearAuthCookie();
 session_unset();
 session_destroy();
-header('Location: /index.php');
+header('Location: /');
 exit;
 ?>

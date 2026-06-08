@@ -4,12 +4,23 @@
  * Avance 2 - Ingeniería Web
  */
 
-// Iniciar sesión si no está activa
+// Configurar sesión ANTES de iniciarla
+// En Vercel serverless, /tmp es el único directorio escribible
 if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.save_path', '/tmp');
+    ini_set('session.cookie_lifetime', '86400');   // 24h
+    ini_set('session.gc_maxlifetime', '86400');
+    session_set_cookie_params([
+        'lifetime' => 86400,
+        'path'     => '/',
+        'secure'   => true,
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ]);
     session_start();
 }
 
-// Configuración de la base de datos
+// ---------- Configuración de la base de datos ----------
 // Prioriza variables de entorno para producción (Vercel).
 define('DB_DRIVER', getenv('DB_DRIVER') ?: 'mysql'); // 'sqlite', 'mysql' o 'pgsql'
 
@@ -37,11 +48,10 @@ if ($dbUrl) {
     define('DB_DRIVER_FINAL', DB_DRIVER);
 }
 
-// Conexión PDO
+// ---------- Conexión PDO ----------
 function getDBConnection() {
     try {
         if (DB_DRIVER_FINAL === 'sqlite') {
-            // Asegurarse de que el directorio de la base de datos exista
             $dbDir = dirname(DB_SQLITE_FILE);
             if (!file_exists($dbDir)) {
                 mkdir($dbDir, 0777, true);
@@ -70,7 +80,37 @@ function getDBConnection() {
     }
 }
 
-// Helpers de sesión y roles
+// ---------- Helpers de autenticación ----------
+// Usa session Y cookie de respaldo para Vercel serverless
+function _loadAuthFromCookie() {
+    if (!isset($_SESSION['user_id']) && isset($_COOKIE['esmar_uid'])) {
+        // Restaurar sesión desde cookie firmada (base64 de user_id|user_rol|user_nombre)
+        $raw = base64_decode($_COOKIE['esmar_uid']);
+        $parts = explode('|', $raw);
+        if (count($parts) === 3) {
+            $_SESSION['user_id']     = (int)$parts[0];
+            $_SESSION['user_rol']    = $parts[1];
+            $_SESSION['user_nombre'] = $parts[2];
+        }
+    }
+}
+_loadAuthFromCookie();
+
+function setAuthCookie($userId, $rol, $nombre) {
+    $data = base64_encode($userId . '|' . $rol . '|' . $nombre);
+    setcookie('esmar_uid', $data, [
+        'expires'  => time() + 86400,
+        'path'     => '/',
+        'secure'   => true,
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ]);
+}
+
+function clearAuthCookie() {
+    setcookie('esmar_uid', '', ['expires' => time() - 3600, 'path' => '/', 'secure' => true, 'httponly' => true, 'samesite' => 'Lax']);
+}
+
 function isLoggedIn() {
     return isset($_SESSION['user_id']);
 }
@@ -87,8 +127,14 @@ function requireLogin() {
 }
 
 function requireAdmin() {
-    if (!isAdmin()) {
+    if (!isLoggedIn()) {
+        // No está logueado en absoluto → login
         header('Location: /login.php');
+        exit;
+    }
+    if (!isAdmin()) {
+        // Logueado pero no es admin → inicio (evita loop con login)
+        header('Location: /');
         exit;
     }
 }
