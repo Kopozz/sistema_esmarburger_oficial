@@ -4,6 +4,10 @@
     {
       "src": "**/*.php",
       "use": "vercel-php@0.8.0"
+    },
+    {
+      "src": "css/**/*.css",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
