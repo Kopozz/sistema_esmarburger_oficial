@@ -9,8 +9,8 @@
     "checkout.php": { "runtime": "vercel-php@0.8.0" },
     "mis_pedidos.php": { "runtime": "vercel-php@0.8.0" },
     "registro.php": { "runtime": "vercel-php@0.8.0" },
-    "admin/dashboard.php": { "runtime": "vercel-php@0.8.0" },
-    "admin/pedidos.php": { "runtime": "vercel-php@0.8.0" }
+    "admin_dashboard.php": { "runtime": "vercel-php@0.8.0" },
+    "admin_pedidos.php": { "runtime": "vercel-php@0.8.0" }
   },
   "routes": [
     {

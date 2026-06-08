@@ -43,7 +43,7 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
                     <?php if (isLoggedIn()): ?>
                         <li><a href="mis_pedidos.php" class="nav-link">Mis Pedidos</a></li>
                         <?php if (isAdmin()): ?>
-                            <li><a href="admin/dashboard.php" class="nav-link" style="color: var(--secondary);">Panel Admin</a></li>
+                            <li><a href="admin_dashboard.php" class="nav-link" style="color: var(--secondary);">Panel Admin</a></li>
                         <?php endif; ?>
                     <?php endif; ?>
                 </ul>

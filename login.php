@@ -8,7 +8,7 @@ require_once 'config.php';
 // Si ya inició sesión, redirigir
 if (isLoggedIn()) {
     if (isAdmin()) {
-        header('Location: admin/dashboard.php');
+        header('Location: admin_dashboard.php');
     } else {
         header('Location: index.php');
     }
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_rol'] = $user['rol'];
             
             if ($user['rol'] === 'admin') {
-                header('Location: admin/dashboard.php');
+                header('Location: admin_dashboard.php');
             } else {
                 header('Location: index.php');
             }

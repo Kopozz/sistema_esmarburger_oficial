@@ -3,7 +3,7 @@
  * ESMAR BURGER - Panel Admin de Pedidos
  * Avance 2 - Ingeniería Web
  */
-require_once '../config.php';
+require_once 'config.php';
 requireAdmin();
 
 $pdo = getDBConnection();
@@ -36,12 +36,12 @@ $allOrders = $stmtOrders->fetchAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestionar Pedidos - Esmar Burger</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
         <div class="nav-container">
-            <a href="../index.php" class="logo-link">
+            <a href="index.php" class="logo-link">
                 <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="50" cy="50" r="46" fill="none" stroke="#00baf2" stroke-width="4" />
                     <circle cx="50" cy="50" r="40" fill="none" stroke="#ff6b00" stroke-dasharray="6,4" stroke-width="1.5" />
@@ -54,7 +54,7 @@ $allOrders = $stmtOrders->fetchAll();
 
             <div class="nav-actions">
                 <span style="font-size: 0.9rem; color: var(--text-secondary);">Sesión: <strong>Admin</strong></span>
-                <a href="../logout.php" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Cerrar Sesión</a>
+                <a href="logout.php" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Cerrar Sesión</a>
             </div>
         </div>
     </header>
@@ -64,7 +64,7 @@ $allOrders = $stmtOrders->fetchAll();
         <aside class="glass-panel admin-sidebar">
             <ul class="admin-nav-list">
                 <li>
-                    <a href="dashboard.php" class="admin-nav-link">
+                    <a href="admin_dashboard.php" class="admin-nav-link">
                         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"></path>
                         </svg>
@@ -72,7 +72,7 @@ $allOrders = $stmtOrders->fetchAll();
                     </a>
                 </li>
                 <li>
-                    <a href="pedidos.php" class="admin-nav-link active">
+                    <a href="admin_pedidos.php" class="admin-nav-link active">
                         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
                         </svg>
@@ -80,7 +80,7 @@ $allOrders = $stmtOrders->fetchAll();
                     </a>
                 </li>
                 <li>
-                    <a href="../index.php" class="admin-nav-link">
+                    <a href="index.php" class="admin-nav-link">
                         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                         </svg>
@@ -150,7 +150,7 @@ $allOrders = $stmtOrders->fetchAll();
                                         </td>
                                         <td>
                                             <!-- Formulario simple para actualizar estado -->
-                                            <form action="pedidos.php" method="POST" style="display: flex; gap: 0.5rem; align-items: center;">
+                                            <form action="admin_pedidos.php" method="POST" style="display: flex; gap: 0.5rem; align-items: center;">
                                                 <input type="hidden" name="pedido_id" value="<?php echo $ped['id']; ?>">
                                                 <input type="hidden" name="update_status" value="1">
                                                 
