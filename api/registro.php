@@ -7,7 +7,7 @@ require_once 'config.php';
 
 // Si ya inició sesión, redirigir
 if (isLoggedIn()) {
-    header('Location: index.php');
+    header('Location: /');
     exit;
 }
 
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_nombre'] = $nombre;
                 $_SESSION['user_rol'] = 'cliente';
 
-                header('Location: index.php');
+                header('Location: /');
                 exit;
             } catch (PDOException $e) {
                 $error = 'Error en el servidor. Inténtalo de nuevo más tarde.';

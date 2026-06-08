@@ -10,7 +10,7 @@ requireLogin();
 
 // Validar que el carrito no esté vacío
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-    header('Location: index.php');
+    header('Location: /');
     exit;
 }
 
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             unset($_SESSION['cart']);
 
             // Redirigir a mis_pedidos.php con ID de confirmación
-            header("Location: mis_pedidos.php?success=1&id=$pedidoId");
+            header("Location: /mis_pedidos.php?success=1&id=$pedidoId");
             exit;
 
         } catch (PDOException $e) {
