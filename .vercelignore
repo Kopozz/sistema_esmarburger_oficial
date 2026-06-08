@@ -1,0 +1,2 @@
+# Ignore database scripts in Vercel deployment
+database.sql
