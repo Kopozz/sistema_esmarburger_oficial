@@ -39,7 +39,7 @@ $stmtPopular = $pdo->query("
     SELECT pr.nombre, pr.categoria, SUM(pd.cantidad) as total_vendido 
     FROM pedido_detalles pd
     JOIN productos pr ON pd.producto_id = pr.id
-    GROUP BY pd.producto_id
+    GROUP BY pd.producto_id, pr.nombre, pr.categoria
     ORDER BY total_vendido DESC
     LIMIT 3
 ");
