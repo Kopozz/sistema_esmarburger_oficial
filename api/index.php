@@ -6,9 +6,25 @@
 // Obtener la URI solicitada
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
-// Si es un archivo estático, no procesar con PHP
+// Si es un archivo estático, servirlo manualmente
 if (preg_match('/\.(?:png|jpg|jpeg|gif|css|js|ico|svg)$/', $uri)) {
-    return false;
+    $staticFile = dirname(__DIR__) . $uri;
+    if (file_exists($staticFile)) {
+        $ext = strtolower(pathinfo($staticFile, PATHINFO_EXTENSION));
+        $mimeTypes = [
+            'css' => 'text/css',
+            'js' => 'application/javascript',
+            'png' => 'image/png',
+            'jpg' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'gif' => 'image/gif',
+            'svg' => 'image/svg+xml',
+            'ico' => 'image/x-icon'
+        ];
+        header('Content-Type: ' . ($mimeTypes[$ext] ?? 'application/octet-stream'));
+        readfile($staticFile);
+        exit;
+    }
 }
 
 // Mapear al archivo físico en la raíz del proyecto
