@@ -32,13 +32,17 @@ define('DB_CHARSET', 'utf8mb4');
 // Detectar la ruta base automáticamente
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
 
-// Si estamos en un subdirectorio admin/, subir un nivel
-if (strpos($scriptDir, '/admin') !== false) {
-    $baseDir = dirname($scriptDir);
+if (getenv('VERCEL') || isset($_SERVER['VERCEL'])) {
+    $baseDir = '';
 } else {
-    $baseDir = $scriptDir;
+    $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+    // Si estamos en un subdirectorio admin/, subir un nivel
+    if (strpos($scriptDir, '/admin') !== false) {
+        $baseDir = dirname($scriptDir);
+    } else {
+        $baseDir = $scriptDir;
+    }
 }
 $baseDir = rtrim($baseDir, '/');
 
