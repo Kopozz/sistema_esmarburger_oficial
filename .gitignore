@@ -8,3 +8,8 @@ database/*.db
 
 # Presentation Guide (local only)
 guia_exposicion.md
+
+# Environment/Credentials
+.env
+credentials.txt
+*local*

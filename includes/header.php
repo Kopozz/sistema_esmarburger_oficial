@@ -1,75 +1,69 @@
 <?php
 /**
- * ESMAR BURGER - Header
- * Avance 2 - Ingeniería Web
+ * ESMAR-BURGER — Header Público
  */
-require_once __DIR__ . '/../api/config.php';
-
-// Calcular total de items en el carrito
-$cartCount = 0;
-if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
-    foreach ($_SESSION['cart'] as $qty) {
-        $cartCount += $qty;
-    }
-}
+require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/funciones.php';
+$usuario = getUsuarioActual();
+$carritoConteo = conteoCarrito();
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esmar Burger - Premium Delivery SAAS</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <meta name="description" content="ESMAR BURGER — Las mejores hamburguesas artesanales con delivery a tu puerta. Hamburguesas, broaster, salchipapas y más.">
+    <title><?php echo isset($titulo_pagina) ? $titulo_pagina . ' | ' : ''; ?>ESMAR BURGER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/style.css">
 </head>
 <body>
-    <header>
-        <div class="nav-container">
-            <a href="/" class="logo-link">
-                <!-- SVG Premium que emula el logo provisto -->
-                <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="46" fill="none" stroke="#00baf2" stroke-width="4" />
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="#ff6b00" stroke-dasharray="6,4" stroke-width="1.5" />
-                    <!-- Burger shape simplified -->
-                    <path d="M30 46 C30 35, 70 35, 70 46 Z" fill="#ff6b00" />
-                    <rect x="26" y="50" width="48" height="6" rx="3" fill="#00baf2" />
-                    <path d="M28 60 C28 66, 72 66, 72 60 Z" fill="#ff6b00" />
-                </svg>
-                <span class="logo-text">ESMAR BURGER</span>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container navbar-container">
+            <a href="<?php echo BASE_URL; ?>/index.php" class="navbar-logo">
+                <span class="logo-icon">🍔</span>
+                <span class="logo-text">ESMAR<span class="logo-highlight">BURGER</span></span>
             </a>
 
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="/" class="nav-link">Carta</a></li>
-                    <?php if (isLoggedIn()): ?>
-                        <li><a href="/mis_pedidos.php" class="nav-link">Mis Pedidos</a></li>
-                        <?php if (isAdmin()): ?>
-                            <li><a href="/admin_dashboard.php" class="nav-link" style="color: var(--secondary);">Panel Admin</a></li>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                </ul>
-            </nav>
+            <button class="navbar-toggle" id="navbar-toggle" aria-label="Abrir menú">
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+            </button>
 
-            <div class="nav-actions">
-                <a href="/cart.php" class="btn-icon" title="Ver Carrito">
-                    <!-- Icono Carrito -->
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                    </svg>
-                    <?php if ($cartCount > 0): ?>
-                        <span class="badge" id="cart-badge"><?php echo $cartCount; ?></span>
-                    <?php else: ?>
-                        <span class="badge" id="cart-badge" style="display:none;">0</span>
-                    <?php endif; ?>
-                </a>
-
-                <?php if (isLoggedIn()): ?>
-                    <span style="font-size: 0.9rem; color: var(--text-secondary);">Hola, <strong><?php echo htmlspecialchars($_SESSION['user_nombre']); ?></strong></span>
-                    <a href="/logout.php" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Salir</a>
-                <?php else: ?>
-                    <a href="/login.php" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Ingresar</a>
-                    <a href="/registro.php" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Registrarse</a>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li><a href="<?php echo BASE_URL; ?>/index.php" class="nav-link">Inicio</a></li>
+                <li><a href="<?php echo BASE_URL; ?>/menu.php" class="nav-link">Menú</a></li>
+                <?php if (estaLogueado()): ?>
+                    <li><a href="<?php echo BASE_URL; ?>/mis_pedidos.php" class="nav-link">Mis Pedidos</a></li>
                 <?php endif; ?>
-            </div>
+                <li>
+                    <a href="<?php echo BASE_URL; ?>/carrito.php" class="nav-link nav-carrito">
+                        🛒 Carrito
+                        <?php if ($carritoConteo > 0): ?>
+                            <span class="carrito-badge" id="carrito-badge"><?php echo $carritoConteo; ?></span>
+                        <?php endif; ?>
+                    </a>
+                </li>
+                <?php if (estaLogueado()): ?>
+                    <li class="nav-usuario">
+                        <span class="nav-saludo">Hola, <?php echo limpiar($usuario['nombre']); ?></span>
+                        <?php if (esAdmin()): ?>
+                            <a href="<?php echo BASE_URL; ?>/admin/index.php" class="btn btn-sm btn-outline">Panel Admin</a>
+                        <?php endif; ?>
+                        <a href="<?php echo BASE_URL; ?>/logout.php" class="btn btn-sm btn-ghost">Salir</a>
+                    </li>
+                <?php else: ?>
+                    <li><a href="<?php echo BASE_URL; ?>/login.php" class="btn btn-sm btn-primary">Iniciar Sesión</a></li>
+                <?php endif; ?>
+            </ul>
         </div>
-    </header>
-    <main style="flex: 1;">
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <div class="container">
+            <?php mostrarMensaje(); ?>

@@ -1,3 +1,0 @@
-# Ignore database scripts in Vercel deployment
-database.sql
-guia_exposicion.md
