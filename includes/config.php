@@ -30,7 +30,11 @@ define('DB_CHARSET', 'utf8mb4');
 // RUTAS DEL SISTEMA
 // =====================================================
 // Detectar la ruta base automáticamente
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $protocol = 'https';
+} else {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+}
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 
 if (getenv('VERCEL') || isset($_SERVER['VERCEL']) || isset($_SERVER['VERCEL_URL'])) {
