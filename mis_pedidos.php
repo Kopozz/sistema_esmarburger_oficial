@@ -61,11 +61,11 @@ require_once __DIR__ . '/includes/header.php';
                     
                     <?php 
                     $pasos = [
-                        ['icono' => '⏳', 'texto' => 'Pendiente'],
-                        ['icono' => '✅', 'texto' => 'Confirmado'],
-                        ['icono' => '👨‍🍳', 'texto' => 'Preparando'],
-                        ['icono' => '🛵', 'texto' => 'En Camino'],
-                        ['icono' => '📦', 'texto' => 'Entregado']
+                        ['icono' => '<i class="ph-bold ph-hourglass"></i>', 'texto' => 'Pendiente'],
+                        ['icono' => '<i class="ph-bold ph-check-circle"></i>', 'texto' => 'Confirmado'],
+                        ['icono' => '<i class="ph-bold ph-cooking-pot"></i>', 'texto' => 'Preparando'],
+                        ['icono' => '<i class="ph-bold ph-moped"></i>', 'texto' => 'En Camino'],
+                        ['icono' => '<i class="ph-bold ph-package"></i>', 'texto' => 'Entregado']
                     ];
                     foreach ($pasos as $idx => $paso): 
                         $clase = '';

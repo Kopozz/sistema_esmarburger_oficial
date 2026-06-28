@@ -60,7 +60,7 @@ $compras = $pdo->query("SELECT c.*, p.nombre as proveedor, u.nombre as registrad
 ?>
 
 <div class="admin-seccion-header">
-    <h1 class="pagina-titulo">🛒 Compras de Insumos</h1>
+    <h1 class="pagina-titulo"><i class="ph-bold ph-shopping-cart"></i> Compras de Insumos</h1>
     <button class="btn btn-primary" data-modal="modal-compra">➕ Nueva Compra</button>
 </div>
 

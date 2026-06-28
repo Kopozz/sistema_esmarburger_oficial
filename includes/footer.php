@@ -7,7 +7,7 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <h3 class="footer-titulo">
-                        <span class="logo-icon">🍔</span> ESMAR BURGER
+                        <span class="logo-icon"><i class="ph-fill ph-hamburger"></i></span> ESMAR BURGER
                     </h3>
                     <p class="footer-desc">Las mejores hamburguesas artesanales de la ciudad. Calidad, sabor y rapidez en cada pedido.</p>
                 </div>

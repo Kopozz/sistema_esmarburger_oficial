@@ -20,7 +20,7 @@ require_once __DIR__ . '/includes/header.php';
 <section class="hero" style="margin: -70px -20px 0; padding: 0 20px;">
     <div class="container">
         <div class="hero-content">
-            <p class="hero-subtitle">🔥 Delivery a tu puerta</p>
+            <p class="hero-subtitle"><i class="ph-fill ph-fire"></i> Delivery a tu puerta</p>
             <h1>Las Mejores <span>Hamburguesas</span> Artesanales de la Ciudad</h1>
             <p class="hero-desc">
                 Disfruta de nuestras deliciosas hamburguesas preparadas con los ingredientes más frescos. 
@@ -28,14 +28,14 @@ require_once __DIR__ . '/includes/header.php';
             </p>
             <div class="hero-buttons">
                 <a href="<?php echo BASE_URL; ?>/menu.php" class="btn btn-primary btn-lg">
-                    🍔 Ver Menú Completo
+                    <i class="ph-bold ph-hamburger"></i> Ver Menú Completo
                 </a>
                 <a href="#productos-destacados" class="btn btn-outline btn-lg">
-                    ⬇️ Explorar
+                    <i class="ph-bold ph-arrow-down"></i> Explorar
                 </a>
             </div>
         </div>
-        <div class="hero-emoji">🍔</div>
+        <div class="hero-emoji"><i class="ph-fill ph-hamburger"></i></div>
     </div>
 </section>
 
@@ -49,17 +49,17 @@ require_once __DIR__ . '/includes/header.php';
         </div>
         <div class="features-grid">
             <div class="feature-card animar">
-                <span class="feature-icono">🍖</span>
+                <span class="feature-icono"><i class="ph-fill ph-meat"></i></span>
                 <h3>Ingredientes Frescos</h3>
                 <p>Seleccionamos los mejores ingredientes diariamente para garantizar la calidad de cada hamburguesa.</p>
             </div>
             <div class="feature-card animar">
-                <span class="feature-icono">🚀</span>
+                <span class="feature-icono"><i class="ph-fill ph-rocket"></i></span>
                 <h3>Delivery Rápido</h3>
                 <p>Tu pedido llega caliente a tu puerta. Nos comprometemos con tiempos de entrega ágiles.</p>
             </div>
             <div class="feature-card animar">
-                <span class="feature-icono">💰</span>
+                <span class="feature-icono"><i class="ph-fill ph-coins"></i></span>
                 <h3>Precios Accesibles</h3>
                 <p>Las mejores hamburguesas al mejor precio. Combos y promociones especiales todos los días.</p>
             </div>
@@ -81,12 +81,12 @@ require_once __DIR__ . '/includes/header.php';
                 <div class="producto-img-container">
                     <div class="producto-img">
                         <?php 
-                        $emojis = ['🍔' => 'Hamburguesas', '🍗' => 'Broaster', '🍟' => 'Salchipapas', '🎉' => 'Combos', '🥤' => 'Bebidas'];
-                        $emoji = '🍔';
+                        $emojis = ['ph-hamburger' => 'Hamburguesas', 'ph-bone' => 'Broaster', 'ph-french-fries' => 'Salchipapas', 'ph-confetti' => 'Combos', 'ph-coffee' => 'Bebidas'];
+                        $emoji = 'ph-hamburger';
                         foreach ($emojis as $e => $cat) {
                             if ($producto['categoria'] === $cat) { $emoji = $e; break; }
                         }
-                        echo $emoji;
+                        echo '<i class="ph-fill ' . $emoji . '"></i>';
                         ?>
                     </div>
                     <span class="producto-categoria"><?php echo limpiar($producto['categoria'] ?? 'General'); ?></span>
@@ -97,7 +97,7 @@ require_once __DIR__ . '/includes/header.php';
                     <div class="producto-footer">
                         <span class="producto-precio"><?php echo formatoPrecio($producto['precio']); ?></span>
                         <a href="<?php echo BASE_URL; ?>/carrito.php?agregar=<?php echo $producto['id']; ?>" class="btn-agregar">
-                            🛒 Agregar
+                            <i class="ph-bold ph-shopping-cart-simple"></i> Agregar
                         </a>
                     </div>
                 </div>

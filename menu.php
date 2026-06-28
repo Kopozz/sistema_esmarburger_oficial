@@ -24,7 +24,7 @@ require_once __DIR__ . '/includes/header.php';
 ?>
 
 <div class="pagina-header">
-    <h1 class="pagina-titulo">🍔 Nuestro Menú</h1>
+    <h1 class="pagina-titulo"><i class="ph-bold ph-book-open-text"></i> Nuestro Menú</h1>
     <p class="pagina-subtitulo">Descubre todos nuestros deliciosos platos</p>
 </div>
 
@@ -51,13 +51,13 @@ require_once __DIR__ . '/includes/header.php';
 <?php else: ?>
     <div class="productos-grid">
         <?php 
-        $emojis_cat = ['Hamburguesas' => '🍔', 'Broaster' => '🍗', 'Salchipapas' => '🍟', 'Combos' => '🎉', 'Bebidas' => '🥤'];
+        $emojis_cat = ['Hamburguesas' => 'ph-hamburger', 'Broaster' => 'ph-bone', 'Salchipapas' => 'ph-french-fries', 'Combos' => 'ph-confetti', 'Bebidas' => 'ph-coffee'];
         foreach ($productos as $producto): 
-            $emoji = $emojis_cat[$producto['categoria'] ?? ''] ?? '🍔';
+            $emoji = $emojis_cat[$producto['categoria'] ?? ''] ?? 'ph-hamburger';
         ?>
-        <div class="producto-card" data-categoria="<?php echo limpiar($producto['categoria'] ?? ''); ?>">
+        <div class="producto-card animar" data-categoria="<?php echo limpiar($producto['categoria'] ?? ''); ?>">
             <div class="producto-img-container">
-                <div class="producto-img"><?php echo $emoji; ?></div>
+                <div class="producto-img"><i class="ph-fill <?php echo $emoji; ?>"></i></div>
                 <span class="producto-categoria"><?php echo limpiar($producto['categoria'] ?? 'General'); ?></span>
             </div>
             <div class="producto-info">
@@ -68,7 +68,7 @@ require_once __DIR__ . '/includes/header.php';
                         <?php echo formatoPrecio($producto['precio']); ?>
                     </span>
                     <a href="<?php echo BASE_URL; ?>/carrito.php?agregar=<?php echo $producto['id']; ?>" class="btn-agregar">
-                        🛒 Agregar
+                        <i class="ph-bold ph-shopping-cart-simple"></i> Agregar
                     </a>
                 </div>
             </div>

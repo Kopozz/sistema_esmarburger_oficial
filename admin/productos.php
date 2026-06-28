@@ -63,7 +63,7 @@ $productos = $pdo->query("SELECT p.*, c.nombre as categoria FROM productos p LEF
 ?>
 
 <div class="admin-seccion-header">
-    <h1 class="pagina-titulo">🍔 Gestión de Productos</h1>
+    <h1 class="pagina-titulo"><i class="ph-bold ph-hamburger"></i> Gestión de Productos</h1>
     <button class="btn btn-primary" data-modal="modal-producto" id="btn-nuevo-producto">➕ Nuevo Producto</button>
 </div>
 

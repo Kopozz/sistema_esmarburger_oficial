@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS categorias (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT,
-    icono VARCHAR(50) DEFAULT '🍔',
+    icono VARCHAR(50) DEFAULT 'ph-hamburger',
     activo TINYINT(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB;
 
@@ -349,11 +349,11 @@ INSERT INTO usuarios (nombre, email, password, rol, telefono, direccion) VALUES
 
 -- Categorías
 INSERT INTO categorias (nombre, descripcion, icono) VALUES
-('Hamburguesas', 'Nuestras deliciosas hamburguesas artesanales', '🍔'),
-('Broaster', 'Pollo broaster crujiente y jugoso', '🍗'),
-('Salchipapas', 'Salchipapas con variedad de combinaciones', '🍟'),
-('Combos', 'Combos familiares y para compartir', '🎉'),
-('Bebidas', 'Refrescos, jugos y bebidas', '🥤');
+('Hamburguesas', 'Nuestras deliciosas hamburguesas artesanales', 'ph-hamburger'),
+('Broaster', 'Pollo broaster crujiente y jugoso', 'ph-bone'),
+('Salchipapas', 'Salchipapas con variedad de combinaciones', 'ph-french-fries'),
+('Combos', 'Combos especiales para compartir', 'ph-confetti'),
+('Bebidas', 'Refrescos, jugos y bebidas', 'ph-coffee');
 
 -- Productos
 INSERT INTO productos (categoria_id, nombre, descripcion, precio, imagen) VALUES

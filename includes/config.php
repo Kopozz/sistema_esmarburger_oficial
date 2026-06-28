@@ -4,10 +4,7 @@
  * Archivo central de configuración del sistema
  */
 
-// Iniciar sesión si no está activa
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// La sesión se iniciará después de establecer la conexión a la base de datos y configurar el handler.
 
 // =====================================================
 // CONSTANTES DEL SISTEMA
@@ -79,7 +76,64 @@ try {
 }
 
 // =====================================================
-// FUNCIONES DE SESIÓN
+// FUNCIONES DE SESIÓN Y HANDLER EN BASE DE DATOS
+// =====================================================
+
+// Crear tabla de sesiones si no existe
+$pdo->exec("
+    CREATE TABLE IF NOT EXISTS sys_sessions (
+        id VARCHAR(128) NOT NULL PRIMARY KEY,
+        data MEDIUMTEXT NOT NULL,
+        timestamp INT(10) UNSIGNED NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+");
+
+class DatabaseSessionHandler implements SessionHandlerInterface {
+    private $pdo;
+    
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
+    
+    public function open($savePath, $sessionName): bool { return true; }
+    public function close(): bool { return true; }
+    
+    public function read($id): string|false {
+        $stmt = $this->pdo->prepare("SELECT data FROM sys_sessions WHERE id = ? AND timestamp > ?");
+        $stmt->execute([$id, time() - ini_get('session.gc_maxlifetime')]);
+        if ($row = $stmt->fetch()) {
+            return $row['data'];
+        }
+        return '';
+    }
+    
+    public function write($id, $data): bool {
+        $timestamp = time();
+        $stmt = $this->pdo->prepare("REPLACE INTO sys_sessions (id, data, timestamp) VALUES (?, ?, ?)");
+        return $stmt->execute([$id, $data, $timestamp]);
+    }
+    
+    public function destroy($id): bool {
+        $stmt = $this->pdo->prepare("DELETE FROM sys_sessions WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
+    
+    public function gc($maxlifetime): int|false {
+        $stmt = $this->pdo->prepare("DELETE FROM sys_sessions WHERE timestamp < ?");
+        $stmt->execute([time() - $maxlifetime]);
+        return $stmt->rowCount();
+    }
+}
+
+// Configurar el handler de sesiones
+$handler = new DatabaseSessionHandler($pdo);
+session_set_save_handler($handler, true);
+
+// Iniciar sesión si no está activa
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // =====================================================
 
 /**

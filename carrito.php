@@ -80,13 +80,13 @@ require_once __DIR__ . '/includes/header.php';
 ?>
 
 <div class="pagina-header">
-    <h1 class="pagina-titulo">🛒 Mi Carrito</h1>
+    <h1 class="pagina-titulo"><i class="ph-bold ph-shopping-cart"></i> Mi Carrito</h1>
     <p class="pagina-subtitulo">Revisa tus productos antes de ordenar</p>
 </div>
 
 <?php if (empty($_SESSION['carrito'])): ?>
     <div class="carrito-vacio">
-        <span class="carrito-vacio-emoji">🛒</span>
+        <span class="carrito-vacio-emoji"><i class="ph-fill ph-shopping-cart"></i></span>
         <h2>Tu carrito está vacío</h2>
         <p>¡Agrega tus hamburguesas favoritas y haz tu pedido!</p>
         <a href="<?php echo BASE_URL; ?>/menu.php" class="btn btn-primary btn-lg">Ver Menú</a>
@@ -113,7 +113,7 @@ require_once __DIR__ . '/includes/header.php';
                 <tr>
                     <td>
                         <div class="carrito-producto">
-                            <span class="carrito-producto-emoji">🍔</span>
+                            <span class="carrito-producto-emoji"><i class="ph-fill ph-hamburger"></i></span>
                             <span class="carrito-producto-nombre"><?php echo limpiar($item['nombre']); ?></span>
                         </div>
                     </td>

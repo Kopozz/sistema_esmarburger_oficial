@@ -37,8 +37,8 @@ $pedidos = $stmt->fetchAll();
     <div class="admin-filtros">
         <a href="<?php echo BASE_URL; ?>/admin/pedidos.php" class="btn btn-sm <?php echo empty($filtro) ? 'btn-primary' : 'btn-ghost'; ?>" style="<?php echo empty($filtro) ? '' : 'color: var(--color-gris);'; ?>">Todos</a>
         <a href="?filtro=pendiente" class="btn btn-sm <?php echo $filtro === 'pendiente' ? 'btn-primary' : 'btn-ghost'; ?>" style="<?php echo $filtro === 'pendiente' ? '' : 'color: var(--color-gris);'; ?>">⏳ Pendientes</a>
-        <a href="?filtro=preparando" class="btn btn-sm <?php echo $filtro === 'preparando' ? 'btn-primary' : 'btn-ghost'; ?>" style="<?php echo $filtro === 'preparando' ? '' : 'color: var(--color-gris);'; ?>">👨‍🍳 Preparando</a>
-        <a href="?filtro=en_camino" class="btn btn-sm <?php echo $filtro === 'en_camino' ? 'btn-primary' : 'btn-ghost'; ?>" style="<?php echo $filtro === 'en_camino' ? '' : 'color: var(--color-gris);'; ?>">🛵 En Camino</a>
+        <a href="?filtro=preparando" class="btn btn-sm <?php echo $filtro === 'preparando' ? 'btn-primary' : 'btn-ghost'; ?>" style="<?php echo $filtro === 'preparando' ? '' : 'color: var(--color-gris);'; ?>"><i class="ph-bold ph-cooking-pot"></i> Preparando</a>
+        <a href="?filtro=en_camino" class="btn btn-sm <?php echo $filtro === 'en_camino' ? 'btn-primary' : 'btn-ghost'; ?>" style="<?php echo $filtro === 'en_camino' ? '' : 'color: var(--color-gris);'; ?>"><i class="ph-bold ph-moped"></i> En Camino</a>
         <a href="?filtro=entregado" class="btn btn-sm <?php echo $filtro === 'entregado' ? 'btn-primary' : 'btn-ghost'; ?>" style="<?php echo $filtro === 'entregado' ? '' : 'color: var(--color-gris);'; ?>">📦 Entregados</a>
     </div>
 </div>
@@ -79,9 +79,9 @@ $pedidos = $stmt->fetchAll();
                                 <?php if ($ped['estado'] === 'pendiente'): ?>
                                     <a href="?id=<?php echo $ped['pedido_id']; ?>&estado=confirmado" class="btn btn-sm btn-success">✅ Confirmar</a>
                                 <?php elseif ($ped['estado'] === 'confirmado'): ?>
-                                    <a href="?id=<?php echo $ped['pedido_id']; ?>&estado=preparando" class="btn btn-sm btn-secondary">👨‍🍳 Preparar</a>
+                                    <a href="?id=<?php echo $ped['pedido_id']; ?>&estado=preparando" class="btn btn-sm btn-secondary"><i class="ph-bold ph-cooking-pot"></i> Preparar</a>
                                 <?php elseif ($ped['estado'] === 'preparando'): ?>
-                                    <a href="?id=<?php echo $ped['pedido_id']; ?>&estado=en_camino" class="btn btn-sm btn-primary">🛵 Enviar</a>
+                                    <a href="?id=<?php echo $ped['pedido_id']; ?>&estado=en_camino" class="btn btn-sm btn-primary"><i class="ph-bold ph-moped"></i> Enviar</a>
                                 <?php elseif ($ped['estado'] === 'en_camino'): ?>
                                     <a href="?id=<?php echo $ped['pedido_id']; ?>&estado=entregado" class="btn btn-sm btn-success">📦 Entregado</a>
                                 <?php endif; ?>

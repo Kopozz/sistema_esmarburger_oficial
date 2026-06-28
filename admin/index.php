@@ -24,14 +24,14 @@ foreach ($ventasSemana as $v) {
 }
 ?>
 
-<h1 class="pagina-titulo" style="margin-bottom: 30px;">📊 Dashboard</h1>
+<h1 class="pagina-titulo" style="margin-bottom: 30px;"><i class="ph-bold ph-squares-four"></i> Dashboard</h1>
 
 <!-- Cards de estadísticas -->
 <div class="dashboard-grid">
     <div class="dash-card card-ventas">
         <div class="dash-card-header">
             <span class="dash-card-titulo">Ventas Hoy</span>
-            <span class="dash-card-icono">💰</span>
+            <span class="dash-card-icono"><i class="ph-fill ph-coins"></i></span>
         </div>
         <div class="dash-card-valor"><?php echo formatoPrecio($ventasHoy['total']); ?></div>
         <span class="dash-card-cambio cambio-positivo"><?php echo $ventasHoy['cantidad']; ?> pedido(s)</span>
@@ -40,7 +40,7 @@ foreach ($ventasSemana as $v) {
     <div class="dash-card card-pedidos">
         <div class="dash-card-header">
             <span class="dash-card-titulo">Pedidos Pendientes</span>
-            <span class="dash-card-icono">📋</span>
+            <span class="dash-card-icono"><i class="ph-fill ph-receipt"></i></span>
         </div>
         <div class="dash-card-valor"><?php echo $pedidosPendientes['total']; ?></div>
         <span class="dash-card-cambio">En proceso</span>
@@ -49,7 +49,7 @@ foreach ($ventasSemana as $v) {
     <div class="dash-card card-productos">
         <div class="dash-card-header">
             <span class="dash-card-titulo">Productos Activos</span>
-            <span class="dash-card-icono">🍔</span>
+            <span class="dash-card-icono"><i class="ph-fill ph-hamburger"></i></span>
         </div>
         <div class="dash-card-valor"><?php echo $totalProductos['total']; ?></div>
         <span class="dash-card-cambio cambio-positivo">En menú</span>
@@ -58,7 +58,7 @@ foreach ($ventasSemana as $v) {
     <div class="dash-card card-stock">
         <div class="dash-card-header">
             <span class="dash-card-titulo">Alertas Stock</span>
-            <span class="dash-card-icono">⚠️</span>
+            <span class="dash-card-icono"><i class="ph-fill ph-warning"></i></span>
         </div>
         <div class="dash-card-valor"><?php echo $stockBajo['total']; ?></div>
         <span class="dash-card-cambio <?php echo $stockBajo['total'] > 0 ? 'cambio-negativo' : 'cambio-positivo'; ?>">
@@ -72,7 +72,7 @@ foreach ($ventasSemana as $v) {
     <!-- Gráfico de ventas -->
     <div class="admin-seccion">
         <div class="admin-seccion-header">
-            <h3 class="admin-seccion-titulo"><span>📈</span> Ventas Últimos 7 Días</h3>
+            <h3 class="admin-seccion-titulo"><span><i class="ph-bold ph-chart-line-up"></i></span> Ventas Últimos 7 Días</h3>
         </div>
         <div class="grafico-barras">
             <?php 
@@ -98,7 +98,7 @@ foreach ($ventasSemana as $v) {
     <!-- Últimos pedidos -->
     <div class="admin-seccion">
         <div class="admin-seccion-header">
-            <h3 class="admin-seccion-titulo"><span>📋</span> Últimos Pedidos</h3>
+            <h3 class="admin-seccion-titulo"><span><i class="ph-bold ph-receipt"></i></span> Últimos Pedidos</h3>
             <a href="<?php echo BASE_URL; ?>/admin/pedidos.php" class="btn btn-sm btn-primary">Ver Todos</a>
         </div>
         <div class="tabla-container">
@@ -133,27 +133,27 @@ foreach ($ventasSemana as $v) {
 <!-- Accesos Rápidos -->
 <div class="admin-seccion" style="margin-top: 30px;">
     <div class="admin-seccion-header">
-        <h3 class="admin-seccion-titulo"><span>⚡</span> Acciones Rápidas</h3>
+        <h3 class="admin-seccion-titulo"><span><i class="ph-bold ph-lightning"></i></span> Acciones Rápidas</h3>
     </div>
     <div class="acciones-rapidas">
         <a href="<?php echo BASE_URL; ?>/admin/pedidos.php" class="accion-card">
-            <span class="accion-icono">📋</span>
+            <span class="accion-icono"><i class="ph-fill ph-receipt"></i></span>
             <span class="accion-texto">Gestionar Pedidos</span>
         </a>
         <a href="<?php echo BASE_URL; ?>/admin/productos.php" class="accion-card">
-            <span class="accion-icono">🍔</span>
+            <span class="accion-icono"><i class="ph-fill ph-hamburger"></i></span>
             <span class="accion-texto">Editar Menú</span>
         </a>
         <a href="<?php echo BASE_URL; ?>/admin/compras.php" class="accion-card">
-            <span class="accion-icono">🛒</span>
+            <span class="accion-icono"><i class="ph-fill ph-shopping-cart"></i></span>
             <span class="accion-texto">Registrar Compra</span>
         </a>
         <a href="<?php echo BASE_URL; ?>/admin/inventario.php" class="accion-card">
-            <span class="accion-icono">📦</span>
+            <span class="accion-icono"><i class="ph-fill ph-package"></i></span>
             <span class="accion-texto">Ver Inventario</span>
         </a>
         <a href="<?php echo BASE_URL; ?>/admin/reportes.php" class="accion-card">
-            <span class="accion-icono">📈</span>
+            <span class="accion-icono"><i class="ph-fill ph-chart-line-up"></i></span>
             <span class="accion-texto">Ver Reportes</span>
         </a>
     </div>

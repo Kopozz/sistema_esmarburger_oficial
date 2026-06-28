@@ -17,6 +17,7 @@ $carritoConteo = conteoCarrito();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/style.css">
 </head>
 <body>
@@ -24,7 +25,7 @@ $carritoConteo = conteoCarrito();
     <nav class="navbar" id="navbar">
         <div class="container navbar-container">
             <a href="<?php echo BASE_URL; ?>/index.php" class="navbar-logo">
-                <span class="logo-icon">🍔</span>
+                <span class="logo-icon"><i class="ph-fill ph-hamburger"></i></span>
                 <span class="logo-text">ESMAR<span class="logo-highlight">BURGER</span></span>
             </a>
 
@@ -42,7 +43,7 @@ $carritoConteo = conteoCarrito();
                 <?php endif; ?>
                 <li>
                     <a href="<?php echo BASE_URL; ?>/carrito.php" class="nav-link nav-carrito">
-                        🛒 Carrito
+                        <i class="ph-fill ph-shopping-cart"></i> Carrito
                         <?php if ($carritoConteo > 0): ?>
                             <span class="carrito-badge" id="carrito-badge"><?php echo $carritoConteo; ?></span>
                         <?php endif; ?>

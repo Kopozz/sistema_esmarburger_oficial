@@ -45,7 +45,7 @@ require_once __DIR__ . '/includes/header.php';
 
 <div class="form-container">
     <div class="form-card">
-        <h1 class="form-titulo">🍔 Iniciar Sesión</h1>
+        <h1 class="form-titulo"><i class="ph-bold ph-hamburger"></i> Iniciar Sesión</h1>
         <p class="form-subtitulo">Ingresa a tu cuenta para hacer pedidos</p>
         
         <?php if (!empty($errores)): ?>

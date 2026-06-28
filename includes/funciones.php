@@ -32,12 +32,12 @@ function formatoFecha($fecha) {
  */
 function estadoPedido($estado) {
     $estados = [
-        'pendiente'  => ['texto' => 'Pendiente',  'clase' => 'estado-pendiente',  'icono' => '⏳'],
-        'confirmado' => ['texto' => 'Confirmado', 'clase' => 'estado-confirmado', 'icono' => '✅'],
-        'preparando' => ['texto' => 'Preparando', 'clase' => 'estado-preparando', 'icono' => '👨‍🍳'],
-        'en_camino'  => ['texto' => 'En Camino',  'clase' => 'estado-encamino',   'icono' => '🛵'],
-        'entregado'  => ['texto' => 'Entregado',  'clase' => 'estado-entregado',  'icono' => '📦'],
-        'cancelado'  => ['texto' => 'Cancelado',  'clase' => 'estado-cancelado',  'icono' => '❌']
+        'pendiente'  => ['texto' => 'Pendiente',  'clase' => 'estado-pendiente',  'icono' => '<i class="ph-bold ph-hourglass"></i>'],
+        'confirmado' => ['texto' => 'Confirmado', 'clase' => 'estado-confirmado', 'icono' => '<i class="ph-bold ph-check-circle"></i>'],
+        'preparando' => ['texto' => 'Preparando', 'clase' => 'estado-preparando', 'icono' => '<i class="ph-bold ph-cooking-pot"></i>'],
+        'en_camino'  => ['texto' => 'En Camino',  'clase' => 'estado-encamino',   'icono' => '<i class="ph-bold ph-moped"></i>'],
+        'entregado'  => ['texto' => 'Entregado',  'clase' => 'estado-entregado',  'icono' => '<i class="ph-bold ph-package"></i>'],
+        'cancelado'  => ['texto' => 'Cancelado',  'clase' => 'estado-cancelado',  'icono' => '<i class="ph-bold ph-x-circle"></i>']
     ];
     
     $info = $estados[$estado] ?? ['texto' => $estado, 'clase' => '', 'icono' => '❓'];

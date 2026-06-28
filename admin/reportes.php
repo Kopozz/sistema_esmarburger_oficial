@@ -64,7 +64,7 @@ $ventasDiarias = $pdo->query("SELECT * FROM vista_ventas_diarias LIMIT 7")->fetc
     <div class="dash-card card-ventas">
         <div class="dash-card-header">
             <span class="dash-card-titulo">Total Ventas</span>
-            <span class="dash-card-icono">💰</span>
+            <span class="dash-card-icono"><i class="ph-fill ph-coins"></i></span>
         </div>
         <div class="dash-card-valor"><?php echo formatoPrecio($totalPeriodo); ?></div>
         <span class="dash-card-cambio">Periodo seleccionado</span>
