@@ -33,12 +33,15 @@ define('DB_CHARSET', 'utf8mb4');
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 
-if (getenv('VERCEL') || isset($_SERVER['VERCEL'])) {
+if (getenv('VERCEL') || isset($_SERVER['VERCEL']) || isset($_SERVER['VERCEL_URL'])) {
     $baseDir = '';
 } else {
     $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-    // Si estamos en un subdirectorio admin/, subir un nivel
-    if (strpos($scriptDir, '/admin') !== false) {
+    // Si estamos en Vercel (el router procesa desde /api)
+    if ($scriptDir === '/api') {
+        $baseDir = '';
+    } else if (strpos($scriptDir, '/admin') !== false) {
+        // Si estamos en un subdirectorio admin/, subir un nivel
         $baseDir = dirname($scriptDir);
     } else {
         $baseDir = $scriptDir;
