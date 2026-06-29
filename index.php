@@ -80,14 +80,11 @@ require_once __DIR__ . '/includes/header.php';
             <div class="producto-card animar">
                 <div class="producto-img-container">
                     <div class="producto-img">
-                        <?php 
-                        $emojis = ['ph-hamburger' => 'Hamburguesas', 'ph-bone' => 'Broaster', 'ph-french-fries' => 'Salchipapas', 'ph-confetti' => 'Combos', 'ph-coffee' => 'Bebidas'];
-                        $emoji = 'ph-hamburger';
-                        foreach ($emojis as $e => $cat) {
-                            if ($producto['categoria'] === $cat) { $emoji = $e; break; }
-                        }
-                        echo '<i class="ph-fill ' . $emoji . '"></i>';
-                        ?>
+                        <?php if (!empty($producto['imagen']) && $producto['imagen'] !== 'default.jpg'): ?>
+                            <img src="<?php echo BASE_URL; ?>/img/productos/<?php echo limpiar($producto['imagen']); ?>" alt="<?php echo limpiar($producto['nombre']); ?>" class="foto-producto" loading="lazy">
+                        <?php else: ?>
+                            <div class="no-imagen"><span>NO IMAGEN</span></div>
+                        <?php endif; ?>
                     </div>
                     <span class="producto-categoria"><?php echo limpiar($producto['categoria'] ?? 'General'); ?></span>
                 </div>
@@ -96,7 +93,7 @@ require_once __DIR__ . '/includes/header.php';
                     <p class="producto-desc"><?php echo limpiar($producto['descripcion']); ?></p>
                     <div class="producto-footer">
                         <span class="producto-precio"><?php echo formatoPrecio($producto['precio']); ?></span>
-                        <a href="<?php echo BASE_URL; ?>/carrito.php?agregar=<?php echo $producto['id']; ?>" class="btn-agregar">
+                        <a href="<?php echo BASE_URL; ?>/carrito.php?agregar=<?php echo $producto['id']; ?>" class="btn-agregar btn-add-carrito" data-id="<?php echo $producto['id']; ?>">
                             <i class="ph-bold ph-shopping-cart-simple"></i> Agregar
                         </a>
                     </div>

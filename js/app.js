@@ -175,6 +175,8 @@ document.addEventListener('DOMContentLoaded', function() {
             barra.style.height = '0';
             barrasObserver.observe(barra);
         });
+    }
+
     // ===== AJAX ADD TO CART =====
     const btnsAddCarrito = document.querySelectorAll('.btn-add-carrito');
     btnsAddCarrito.forEach(function(btn) {
