@@ -175,6 +175,89 @@ document.addEventListener('DOMContentLoaded', function() {
             barra.style.height = '0';
             barrasObserver.observe(barra);
         });
+    // ===== AJAX ADD TO CART =====
+    const btnsAddCarrito = document.querySelectorAll('.btn-add-carrito');
+    btnsAddCarrito.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const productoId = this.getAttribute('data-id');
+            const originalHTML = this.innerHTML;
+            
+            // Loading state
+            this.innerHTML = '<i class="ph-bold ph-spinner"></i> Agregando...';
+            this.style.pointerEvents = 'none';
+
+            fetch('api/agregar_carrito.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ producto_id: productoId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                this.innerHTML = originalHTML;
+                this.style.pointerEvents = 'auto';
+
+                if (data.success) {
+                    mostrarToast(data.mensaje);
+                    // Actualizar el contador del carrito en el navbar
+                    let cartBadge = document.getElementById('carrito-badge');
+                    if (!cartBadge) {
+                        const navCarrito = document.querySelector('.nav-carrito');
+                        if (navCarrito) {
+                            cartBadge = document.createElement('span');
+                            cartBadge.className = 'carrito-badge';
+                            cartBadge.id = 'carrito-badge';
+                            navCarrito.appendChild(cartBadge);
+                        }
+                    }
+                    if (cartBadge) {
+                        cartBadge.textContent = data.total_items;
+                    }
+                } else {
+                    mostrarToast(data.mensaje, 'error');
+                }
+            })
+            .catch(error => {
+                this.innerHTML = originalHTML;
+                this.style.pointerEvents = 'auto';
+                mostrarToast('Error al procesar la solicitud.', 'error');
+            });
+        });
+    });
+
+    // ===== TOAST NOTIFICATION SYSTEM =====
+    function mostrarToast(mensaje, tipo = 'success') {
+        let toastContainer = document.getElementById('toast-container');
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.id = 'toast-container';
+            document.body.appendChild(toastContainer);
+        }
+
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${tipo}`;
+        
+        const icono = tipo === 'success' ? '✅' : '❌';
+        
+        toast.innerHTML = `
+            <span class="toast-icono">${icono}</span>
+            <span class="toast-texto">${mensaje}</span>
+        `;
+        
+        toastContainer.appendChild(toast);
+        
+        // Animación de entrada
+        setTimeout(() => toast.classList.add('mostrar'), 10);
+        
+        // Remover después de 3s
+        setTimeout(() => {
+            toast.classList.remove('mostrar');
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 300);
+        }, 3000);
     }
 
 });

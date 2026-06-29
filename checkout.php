@@ -27,6 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $pdo->beginTransaction();
             
+            // Guardar dirección en el perfil si el usuario lo solicita
+            if (isset($_POST['guardar_direccion']) && $_POST['guardar_direccion'] === '1') {
+                $stmtUpdate = $pdo->prepare("UPDATE usuarios SET direccion = ?, telefono = ? WHERE id = ?");
+                $stmtUpdate->execute([$direccion, $telefono, $_SESSION['usuario_id']]);
+            }
+            
             // Usar procedimiento almacenado para crear pedido
             $stmt = $pdo->prepare("CALL sp_registrar_pedido(?, ?, ?, ?, ?, @pedido_id)");
             $stmt->execute([
@@ -120,24 +126,43 @@ require_once __DIR__ . '/includes/header.php';
                        placeholder="Ej: 999888777" required>
             </div>
             
+            <div class="form-grupo" style="margin-top: -10px;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: normal; color: var(--color-gris);">
+                    <input type="checkbox" name="guardar_direccion" value="1">
+                    Guardar esta dirección y teléfono en mi perfil para futuros pedidos
+                </label>
+            </div>
+            
             <div class="form-grupo">
                 <label>Método de Pago *</label>
-                <div class="metodo-pago-opciones">
+                <div class="metodo-pago-opciones visual-cards">
                     <div class="metodo-pago-opcion">
                         <input type="radio" id="pago-efectivo" name="metodo_pago" value="efectivo" checked>
-                        <label for="pago-efectivo" class="metodo-pago-label">💵 Efectivo</label>
+                        <label for="pago-efectivo" class="metodo-pago-label">
+                            <i class="ph-fill ph-money"></i>
+                            <span>Efectivo</span>
+                        </label>
                     </div>
                     <div class="metodo-pago-opcion">
                         <input type="radio" id="pago-yape" name="metodo_pago" value="yape">
-                        <label for="pago-yape" class="metodo-pago-label">📱 Yape</label>
+                        <label for="pago-yape" class="metodo-pago-label">
+                            <i class="ph-fill ph-device-mobile"></i>
+                            <span>Yape</span>
+                        </label>
                     </div>
                     <div class="metodo-pago-opcion">
                         <input type="radio" id="pago-plin" name="metodo_pago" value="plin">
-                        <label for="pago-plin" class="metodo-pago-label">📱 Plin</label>
+                        <label for="pago-plin" class="metodo-pago-label">
+                            <i class="ph-fill ph-device-mobile"></i>
+                            <span>Plin</span>
+                        </label>
                     </div>
                     <div class="metodo-pago-opcion">
                         <input type="radio" id="pago-tarjeta" name="metodo_pago" value="tarjeta">
-                        <label for="pago-tarjeta" class="metodo-pago-label">💳 Tarjeta</label>
+                        <label for="pago-tarjeta" class="metodo-pago-label">
+                            <i class="ph-fill ph-credit-card"></i>
+                            <span>Tarjeta</span>
+                        </label>
                     </div>
                 </div>
             </div>

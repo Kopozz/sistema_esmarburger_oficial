@@ -116,7 +116,7 @@ require_once __DIR__ . '/includes/header.php';
                         <div class="carrito-producto">
                             <div class="carrito-producto-img-peq">
                                 <?php if (!empty($item['imagen']) && $item['imagen'] !== 'default.jpg'): ?>
-                                    <img src="<?php echo BASE_URL; ?>/img/productos/<?php echo limpiar($item['imagen']); ?>" alt="<?php echo limpiar($item['nombre']); ?>" class="foto-producto-peq">
+                                    <img src="<?php echo BASE_URL; ?>/img/productos/<?php echo limpiar($item['imagen']); ?>" alt="<?php echo limpiar($item['nombre']); ?>" class="foto-producto-peq" loading="lazy">
                                 <?php else: ?>
                                     <div class="no-imagen-peq"><span>NO IMG</span></div>
                                 <?php endif; ?>
@@ -191,7 +191,7 @@ $productos_menu = $stmt_menu->fetchAll();
         <div class="producto-img-container">
             <div class="producto-img">
                 <?php if (!empty($producto['imagen']) && $producto['imagen'] !== 'default.jpg'): ?>
-                    <img src="<?php echo BASE_URL; ?>/img/productos/<?php echo limpiar($producto['imagen']); ?>" alt="<?php echo limpiar($producto['nombre']); ?>" class="foto-producto">
+                    <img src="<?php echo BASE_URL; ?>/img/productos/<?php echo limpiar($producto['imagen']); ?>" alt="<?php echo limpiar($producto['nombre']); ?>" class="foto-producto" loading="lazy">
                 <?php else: ?>
                     <div class="no-imagen"><span>NO IMAGEN</span></div>
                 <?php endif; ?>
@@ -205,7 +205,7 @@ $productos_menu = $stmt_menu->fetchAll();
                 <span class="producto-precio">
                     <?php echo formatoPrecio($producto['precio']); ?>
                 </span>
-                <a href="<?php echo BASE_URL; ?>/carrito.php?agregar=<?php echo $producto['id']; ?>" class="btn-agregar">
+                <a href="<?php echo BASE_URL; ?>/carrito.php?agregar=<?php echo $producto['id']; ?>" class="btn-agregar btn-add-carrito" data-id="<?php echo $producto['id']; ?>">
                     <i class="ph-bold ph-shopping-cart-simple"></i> Agregar
                 </a>
             </div>
