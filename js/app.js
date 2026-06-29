@@ -241,7 +241,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const toast = document.createElement('div');
         toast.className = `toast toast-${tipo}`;
         
-        const icono = tipo === 'success' ? '✅' : '❌';
+        const icono = tipo === 'success' 
+            ? '<i class="ph-bold ph-check-circle"></i>' 
+            : '<i class="ph-bold ph-x-circle"></i>';
         
         toast.innerHTML = `
             <span class="toast-icono">${icono}</span>

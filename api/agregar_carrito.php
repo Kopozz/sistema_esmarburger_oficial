@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             echo json_encode([
                 'success' => true,
-                'mensaje' => '✅ ' . $producto['nombre'] . ' agregado al carrito.',
+                'mensaje' => $producto['nombre'] . ' agregado al carrito.',
                 'total_items' => $total_items
             ]);
             exit;
