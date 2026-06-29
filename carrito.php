@@ -26,7 +26,8 @@ if (isset($_GET['agregar'])) {
                 'id' => $producto['id'],
                 'nombre' => $producto['nombre'],
                 'precio' => $producto['precio'],
-                'cantidad' => 1
+                'cantidad' => 1,
+                'imagen' => $producto['imagen']
             ];
         }
         setMensaje('✅ ' . $producto['nombre'] . ' agregado al carrito.', 'success');
@@ -113,7 +114,13 @@ require_once __DIR__ . '/includes/header.php';
                 <tr>
                     <td>
                         <div class="carrito-producto">
-                            <span class="carrito-producto-emoji"><i class="ph-fill ph-hamburger"></i></span>
+                            <div class="carrito-producto-img-peq">
+                                <?php if (!empty($item['imagen']) && $item['imagen'] !== 'default.jpg'): ?>
+                                    <img src="<?php echo BASE_URL; ?>/img/productos/<?php echo limpiar($item['imagen']); ?>" alt="<?php echo limpiar($item['nombre']); ?>" class="foto-producto-peq">
+                                <?php else: ?>
+                                    <div class="no-imagen-peq"><span>NO IMG</span></div>
+                                <?php endif; ?>
+                            </div>
                             <span class="carrito-producto-nombre"><?php echo limpiar($item['nombre']); ?></span>
                         </div>
                     </td>
@@ -164,6 +171,48 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </div>
 <?php endif; ?>
+
+<hr style="border: 0; border-top: 1px solid var(--color-borde); margin: 50px 0;">
+
+<div class="pagina-header">
+    <h2 class="pagina-titulo"><i class="ph-bold ph-plus-circle"></i> Agregar más productos</h2>
+    <p class="pagina-subtitulo">¿Te antojaste de algo más?</p>
+</div>
+
+<?php
+// Obtener productos para el menú rápido
+$stmt_menu = $pdo->query("SELECT p.*, c.nombre as categoria FROM productos p LEFT JOIN categorias c ON p.categoria_id = c.id WHERE p.disponible = 1 ORDER BY c.id, p.nombre");
+$productos_menu = $stmt_menu->fetchAll();
+?>
+
+<div class="productos-grid">
+    <?php foreach ($productos_menu as $producto): ?>
+    <div class="producto-card animar" data-categoria="<?php echo limpiar($producto['categoria'] ?? ''); ?>">
+        <div class="producto-img-container">
+            <div class="producto-img">
+                <?php if (!empty($producto['imagen']) && $producto['imagen'] !== 'default.jpg'): ?>
+                    <img src="<?php echo BASE_URL; ?>/img/productos/<?php echo limpiar($producto['imagen']); ?>" alt="<?php echo limpiar($producto['nombre']); ?>" class="foto-producto">
+                <?php else: ?>
+                    <div class="no-imagen"><span>NO IMAGEN</span></div>
+                <?php endif; ?>
+            </div>
+            <span class="producto-categoria"><?php echo limpiar($producto['categoria'] ?? 'General'); ?></span>
+        </div>
+        <div class="producto-info">
+            <h3 class="producto-nombre"><?php echo limpiar($producto['nombre']); ?></h3>
+            <p class="producto-desc"><?php echo limpiar($producto['descripcion']); ?></p>
+            <div class="producto-footer">
+                <span class="producto-precio">
+                    <?php echo formatoPrecio($producto['precio']); ?>
+                </span>
+                <a href="<?php echo BASE_URL; ?>/carrito.php?agregar=<?php echo $producto['id']; ?>" class="btn-agregar">
+                    <i class="ph-bold ph-shopping-cart-simple"></i> Agregar
+                </a>
+            </div>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
 
 <div style="height: 40px;"></div>
 

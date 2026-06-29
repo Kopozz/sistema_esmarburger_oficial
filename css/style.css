@@ -1610,3 +1610,52 @@ select.form-control {
         padding: 25px;
     }
 }
+
+/* ===== ESTILOS PARA IMÁGENES DE PRODUCTOS ===== */
+.foto-producto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-imagen {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gris-claro);
+    color: var(--color-gris);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.carrito-producto-img-peq {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-right: 15px;
+    flex-shrink: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.foto-producto-peq {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-imagen-peq {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gris-claro);
+    color: var(--color-gris);
+    font-weight: bold;
+    font-size: 0.6rem;
+    text-align: center;
+}

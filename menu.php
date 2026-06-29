@@ -50,14 +50,16 @@ require_once __DIR__ . '/includes/header.php';
     </div>
 <?php else: ?>
     <div class="productos-grid">
-        <?php 
-        $emojis_cat = ['Hamburguesas' => 'ph-hamburger', 'Broaster' => 'ph-bone', 'Salchipapas' => 'ph-french-fries', 'Combos' => 'ph-confetti', 'Bebidas' => 'ph-coffee'];
-        foreach ($productos as $producto): 
-            $emoji = $emojis_cat[$producto['categoria'] ?? ''] ?? 'ph-hamburger';
-        ?>
+        <?php foreach ($productos as $producto): ?>
         <div class="producto-card animar" data-categoria="<?php echo limpiar($producto['categoria'] ?? ''); ?>">
             <div class="producto-img-container">
-                <div class="producto-img"><i class="ph-fill <?php echo $emoji; ?>"></i></div>
+                <div class="producto-img">
+                    <?php if (!empty($producto['imagen']) && $producto['imagen'] !== 'default.jpg'): ?>
+                        <img src="<?php echo BASE_URL; ?>/img/productos/<?php echo limpiar($producto['imagen']); ?>" alt="<?php echo limpiar($producto['nombre']); ?>" class="foto-producto">
+                    <?php else: ?>
+                        <div class="no-imagen"><span>NO IMAGEN</span></div>
+                    <?php endif; ?>
+                </div>
                 <span class="producto-categoria"><?php echo limpiar($producto['categoria'] ?? 'General'); ?></span>
             </div>
             <div class="producto-info">

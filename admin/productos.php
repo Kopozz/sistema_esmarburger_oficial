@@ -29,7 +29,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $precio = (float)($_POST['precio'] ?? 0);
     $categoria_id = (int)($_POST['categoria_id'] ?? 0);
     $disponible = isset($_POST['disponible']) ? 1 : 0;
-    $imagen = limpiar($_POST['imagen'] ?? 'default.jpg');
+    $imagen = 'default.jpg';
+    $imagen_actual = limpiar($_POST['imagen_actual'] ?? '');
+
+    // Procesar subida de imagen
+    if (isset($_FILES['imagen_archivo']) && $_FILES['imagen_archivo']['error'] === UPLOAD_ERR_OK) {
+        $nombre_archivo = $_FILES['imagen_archivo']['name'];
+        $extension = strtolower(pathinfo($nombre_archivo, PATHINFO_EXTENSION));
+        $extensiones_permitidas = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        
+        if (in_array($extension, $extensiones_permitidas)) {
+            $nuevo_nombre = uniqid('prod_') . '.' . $extension;
+            $ruta_destino = __DIR__ . '/../img/productos/' . $nuevo_nombre;
+            
+            if (move_uploaded_file($_FILES['imagen_archivo']['tmp_name'], $ruta_destino)) {
+                $imagen = $nuevo_nombre;
+                // Opcional: eliminar imagen anterior si no es default.jpg
+                if (!empty($imagen_actual) && $imagen_actual !== 'default.jpg' && file_exists(__DIR__ . '/../img/productos/' . $imagen_actual)) {
+                    unlink(__DIR__ . '/../img/productos/' . $imagen_actual);
+                }
+            } else {
+                setMensaje('Error al guardar la imagen en el servidor.', 'error');
+                $imagen = $imagen_actual ?: 'default.jpg';
+            }
+        } else {
+            setMensaje('Formato de imagen no permitido. Solo JPG, PNG, GIF o WEBP.', 'error');
+            $imagen = $imagen_actual ?: 'default.jpg';
+        }
+    } else {
+        $imagen = $imagen_actual ?: 'default.jpg';
+    }
     
     if (!empty($nombre) && $precio > 0) {
         if ($id > 0) {
@@ -122,9 +151,10 @@ $productos = $pdo->query("SELECT p.*, c.nombre as categoria FROM productos p LEF
             <h3 class="modal-titulo"><?php echo $productoEditar ? '✏️ Editar Producto' : '➕ Nuevo Producto'; ?></h3>
             <a href="<?php echo BASE_URL; ?>/admin/productos.php" class="modal-cerrar">✕</a>
         </div>
-        <form method="POST" action="">
+        <form method="POST" action="" enctype="multipart/form-data">
             <div class="modal-body">
                 <input type="hidden" name="id" value="<?php echo $productoEditar['id'] ?? 0; ?>">
+                <input type="hidden" name="imagen_actual" value="<?php echo limpiar($productoEditar['imagen'] ?? 'default.jpg'); ?>">
                 
                 <div class="form-grupo">
                     <label for="nombre">Nombre del Producto *</label>
@@ -156,9 +186,14 @@ $productos = $pdo->query("SELECT p.*, c.nombre as categoria FROM productos p LEF
                 </div>
                 
                 <div class="form-grupo">
-                    <label for="imagen">Nombre de Imagen</label>
-                    <input type="text" id="imagen" name="imagen" class="form-control" 
-                           value="<?php echo limpiar($productoEditar['imagen'] ?? 'default.jpg'); ?>">
+                    <label for="imagen_archivo">Foto del Producto (Opcional)</label>
+                    <input type="file" id="imagen_archivo" name="imagen_archivo" class="form-control" accept="image/*">
+                    <?php if (isset($productoEditar) && $productoEditar['imagen'] !== 'default.jpg'): ?>
+                        <div style="margin-top: 10px;">
+                            <img src="<?php echo BASE_URL; ?>/img/productos/<?php echo limpiar($productoEditar['imagen']); ?>" alt="Imagen actual" style="max-height: 100px; border-radius: 8px;">
+                            <p style="font-size: 12px; color: var(--color-gris);">Imagen actual</p>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 
                 <div class="form-grupo">
